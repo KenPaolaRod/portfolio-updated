@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keny Rodriguez — Frontend Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;1,600&family=Josefin+Sans:wght@100;200;300;400;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Cursor Trail -->
+  <canvas class="cursor-trail" id="cursorTrail"></canvas>
+
+  <!-- Aurora -->
+  <div class="aurora">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Particles -->
+  <canvas id="pcv"></canvas>
+
+  <!-- Mobile Menu -->
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" id="mobClose">✕</button>
+    <a href="#about"    onclick="closeMob()">About</a>
+    <a href="#skills"   onclick="closeMob()">Skills</a>
+    <a href="#projects" onclick="closeMob()">Projects</a>
+    <a href="#contact"  onclick="closeMob()">Contact</a>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">K.</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div style="display:flex;gap:0.6rem;align-items:center;">
+      <a href="resume/resume-kenyerling.pdf" download class="nav-btn">↓ Resume</a>
+      <a href="#contact" class="nav-btn">Hire Me</a>
+    </div>
+    <div class="hamburger" id="ham">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section id="hero">
+
+    <!-- Left: Text -->
+    <div class="hero-text">
+      <p class="hero-eyebrow">Available for work &nbsp;·&nbsp; 2026</p>
+
+      <h1 class="hero-name">
+        <span class="hero-name-line">Kenyerling</span>
+        <span class="hero-name-line">Rodriguez</span>
+      </h1>
+
+      <div class="hero-role-row">
+        <div class="hero-divider"></div>
+        <span class="hero-role">Frontend Developer</span>
+      </div>
+
+      <p class="hero-tagline">
+        <span id="tw"></span><span class="tw-cursor">|</span>
+      </p>
+
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary"><span>View My Work</span></a>
+        <a href="#contact"  class="btn-ghost">Let's Connect</a>
+        <a href="resume/resume-kenyerling.pdf" download class="btn-ghost">↓ Resume</a>
+      </div>
+    </div>
+
+    <!-- Right: Photo -->
+    <div class="hero-photo-wrap">
+      <div class="deco-ring ring-1"></div>
+      <div class="deco-ring ring-2"></div>
+      <div class="hero-img-frame">
+        <div class="hero-img-glow"></div>
+        <img src="/imgs/ken-photo.jpg" alt="Keny Rodriguez"
+             class="hero-img"
+             onerror="this.style.display='none'" />
+        <!-- Floating badge — bottom left -->
+        <div class="hero-img-badge">
+          <span class="badge-dot"></span>
+          <span class="badge-txt">Open to Work</span>
+        </div>
+        <!-- Floating chip — top right -->
+        <div class="hero-img-chip">✦ Frontend Dev</div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span class="hero-scroll-txt">Scroll</span>
+      <div class="scroll-bar"></div>
+    </div>
+    <span class="hero-yr">© 2026</span>
+  </section>
+
+  <!-- ══ ABOUT ══ -->
+  <section id="about">
+    <div class="reveal">
+      <div class="sec-label">About me</div>
+      <div class="about-num">01</div>
+    </div>
+    <div class="reveal" style="transition-delay:.18s">
+      <div class="glass-card">
+        <h2 class="sec-title">Building digital experiences from concept to launch<br><em>Design, code, and everything in between.</em></h2>
+        <p class="about-bio"> I'm Kenyerling Rodriguez a
+          Front-End Developer who builds websites that look great and work even better. I cover the full creative process — from branding and visual design to development and launch — across platforms like WordPress, Webflow, and custom HTML/CSS/JS builds.</p>
+        <p class="about-bio">
+          Based at the intersection of <strong>code and creativity</strong>, I specialize in
+          modern web technologies, animation-rich experiences, and pixel-perfect implementations
+          that push the boundaries of what's possible on the web.
+        </p>
+        <div class="about-stats">
+          <div><span class="stat-n">4+</span><span class="stat-l">Years Experience</span></div>
+          <div><span class="stat-n">24+</span><span class="stat-l">Projects Delivered</span></div>
+          <div><span class="stat-n">100%</span><span class="stat-l">Client Satisfaction</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SKILLS ══ -->
+  <section id="skills">
+    <div class="reveal">
+      <div class="sec-label center">What I work with</div>
+      <h2 class="sec-title" style="margin-bottom:.5rem">My Toolkit</h2>
+    </div>
+    <p class="skills-sub reveal" style="transition-delay:.12s">
+      A curated selection of technologies I use to turn ideas into immersive digital realities.
+    </p>
+    <div class="slider-wrapper reveal" style="transition-delay:.22s">
+      <div class="slider-row" id="srow1"></div>
+      <div class="slider-row" id="srow2"></div>
+      <div class="slider-row" id="srow3"></div>
+    </div>
+  </section>
+
+  <!-- ══ PROJECTS ══ -->
+  <section id="projects">
+    <div class="proj-header reveal">
+      <div>
+        <div class="sec-label">Selected Work</div>
+        <h2 class="sec-title">Projects</h2>
+      </div>
+      <a href="#contact" class="btn-ghost" style="white-space:nowrap">All Projects →</a>
+    </div>
+    <div class="proj-grid" id="pgrid"></div>
+  </section>
+
+  <!-- ══ CONTACT ══ -->
+  <section id="contact">
+    <div class="reveal">
+      <div class="sec-label center">Get in Touch</div>
+      <h2 class="sec-title">Let's Create<br><em>Something Beautiful</em></h2>
+      <p class="contact-sub">
+        Whether you have a project in mind or just want to say hello —<br>
+        my inbox is always open. Let's build something amazing together.
+      </p>
+    </div>
+    <div class="cform reveal" style="transition-delay:.18s">
+      <form id="cfrm" novalidate>
+        <div class="frow">
+          <div class="fgrp">
+            <label for="fn">Your Name</label>
+            <input type="text" id="fn" name="name" placeholder="Jane Doe" autocomplete="off" />
+          </div>
+          <div class="fgrp">
+            <label for="fe">Email Address</label>
+            <input type="email" id="fe" name="email" placeholder="hello@example.com" autocomplete="off" />
+          </div>
+        </div>
+        <div class="fgrp">
+          <label for="fs">Subject</label>
+          <input type="text" id="fs" name="subject" placeholder="Project Collaboration" autocomplete="off" />
+        </div>
+        <div class="fgrp">
+          <label for="fm">Message</label>
+          <textarea id="fm" name="message" rows="5" placeholder="Tell me about your project…"></textarea>
+        </div>
+        <button type="submit" class="fsub"><span id="fsubtxt">Send Message ✦</span></button>
+      </form>
+    </div>
+    <div class="socials reveal" style="transition-delay:.3s">
+      <a href="https://github.com/KenPaolaRod?tab=repositories" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/kenyerling-rodriguez/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p class="ft">© 2026 Keny Rodriguez. All rights reserved.</p>
+    <p class="ft">Crafted with <span class="ft-heart">♥</span> &amp; precision</p>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Study — Keny Rodriguez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400;1,500;1,600&family=Josefin+Sans:wght@100;200;300;400;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TOKENS ─── */
+    :root {
+      --bg:           #08080A;
+      --bg-2:         #0E0E11;
+      --surface:      rgba(255,255,255,0.04);
+      --border:       rgba(255,255,255,0.08);
+      --border-gold:  rgba(201,144,106,0.35);
+      --border-lav:   rgba(184,169,217,0.25);
+      --rose:         #C9906A;
+      --rose-light:   #E8B49A;
+      --lavender:     #B8A9D9;
+      --lavender-light:#D4CCEF;
+      --ivory:        #FAF7F4;
+      --text-1:       #F5F0EB;
+      --text-2:       rgba(245,240,235,0.55);
+      --text-3:       rgba(245,240,235,0.28);
+      --f-display:    'Cormorant', serif;
+      --f-ui:         'Josefin Sans', sans-serif;
+      --f-body:       'DM Sans', sans-serif;
+      --ease:         cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
+      --radius-md:    16px;
+      --radius-lg:    24px;
+      --radius-xl:    40px;
+      /* overridden per project by JS */
+      --accent:       #C9906A;
+      --accent-rgb:   201,144,106;
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; scroll-padding-top:80px; }
+    body {
+      background: var(--bg); color: var(--text-1);
+      font-family: var(--f-body); font-weight: 300;
+      line-height: 1.65; overflow-x: hidden; cursor: none;
+    }
+    ::selection { background: rgba(var(--accent-rgb),0.25); color: var(--ivory); }
+
+    /* ─── CURSOR ─── */
+    @media (max-width:768px) { body { cursor:auto; } #cursorTrail { display:none; } }
+
+    /* ─── AURORA ─── */
+    .aurora { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+    .blob { position:absolute; border-radius:50%; filter:blur(130px); opacity:0.28; will-change:transform; }
+    .blob-1 { width:700px; height:700px; top:-15%; left:-12%; animation:float1 28s ease-in-out infinite; }
+    .blob-2 { width:600px; height:600px; top:10%; right:-10%; opacity:0.2; animation:float2 34s ease-in-out infinite; }
+    .blob-3 { width:500px; height:500px; bottom:20%; left:30%; opacity:0.18; animation:float3 22s ease-in-out infinite; }
+    @keyframes float1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(60px,-80px) scale(1.08)} 66%{transform:translate(-40px,55px) scale(0.94)} }
+    @keyframes float2 { 0%,100%{transform:translate(0,0) scale(1)} 40%{transform:translate(-70px,45px) scale(1.1)} 70%{transform:translate(45px,-60px) scale(0.97)} }
+    @keyframes float3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(55px,70px) scale(1.05)} }
+
+    /* ─── PARTICLES ─── */
+    #pcv { position:fixed; inset:0; z-index:1; pointer-events:none; }
+
+    /* ─── NAV ─── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:900;
+      padding:0 5%; height:72px;
+      display:flex; align-items:center; justify-content:space-between;
+      transition:background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background:rgba(8,8,10,0.78); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-back {
+      font-family:var(--f-ui); font-size:0.63rem; font-weight:300;
+      letter-spacing:0.22em; text-transform:uppercase;
+      color:var(--text-2); text-decoration:none;
+      display:flex; align-items:center; gap:0.6rem;
+      transition:color 0.25s;
+    }
+    .nav-back:hover { color:var(--text-1); }
+    .nav-back::before { content:'←'; transition:transform 0.25s; }
+    .nav-back:hover::before { transform:translateX(-4px); }
+    .nav-tag { font-family:var(--f-ui); font-size:0.58rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:var(--text-3); }
+    .nav-live {
+      font-family:var(--f-ui); font-size:0.63rem; font-weight:300;
+      letter-spacing:0.22em; text-transform:uppercase;
+      color:var(--text-1); text-decoration:none;
+      padding:10px 24px; border:1px solid var(--border-gold); border-radius:40px;
+      transition:all 0.25s; background:transparent;
+    }
+    .nav-live:hover { background:rgba(var(--accent-rgb),0.1); border-color:var(--accent); box-shadow:0 0 24px rgba(var(--accent-rgb),0.2); }
+
+    /* ─── SHARED ─── */
+    @keyframes fu { to { opacity:1; transform:translateY(0); } }
+    @keyframes su { to { opacity:1; transform:translateY(0); } }
+    .reveal { opacity:0; transform:translateY(44px); transition:opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out); }
+    .reveal.in { opacity:1; transform:translateY(0); }
+
+    /* ─── PROJECT HERO ─── */
+    #proj-hero {
+      position:relative; z-index:2;
+      min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end;
+      padding:140px 5% 90px; overflow:hidden;
+    }
+    .ph-meta {
+      display:flex; align-items:center; gap:1.8rem; margin-bottom:2.8rem;
+      opacity:0; transform:translateY(16px);
+      animation:fu 0.7s 0.3s var(--ease-out) forwards;
+    }
+    .ph-tag {
+      font-family:var(--f-ui); font-size:0.58rem; font-weight:300;
+      letter-spacing:0.35em; text-transform:uppercase; color:var(--accent);
+      padding:8px 18px; border:1px solid rgba(var(--accent-rgb),0.3);
+      border-radius:40px; background:rgba(var(--accent-rgb),0.06);
+    }
+    .ph-year { font-family:var(--f-ui); font-size:0.58rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:var(--text-3); }
+    .ph-title {
+      font-family:var(--f-display); font-style:italic; font-weight:300;
+      font-size:clamp(4rem, 12vw, 11rem); line-height:0.88; letter-spacing:-0.02em;
+      overflow:hidden; margin-bottom:2.8rem;
+    }
+    .ph-tl {
+      display:block; opacity:0; transform:translateY(105%);
+      animation:su 0.95s var(--ease-out) forwards;
+    }
+    .ph-tl:nth-child(1) { animation-delay:0.45s; }
+    .ph-tl:nth-child(2) {
+      animation-delay:0.62s;
+      margin-left:clamp(2rem, 8vw, 8rem);
+      background:linear-gradient(125deg, var(--rose-light) 0%, var(--lavender-light) 50%, var(--ivory) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .ph-footer {
+      display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap;
+      opacity:0; animation:fu 0.7s 1s var(--ease-out) forwards;
+    }
+    .ph-role { font-family:var(--f-ui); font-size:0.65rem; font-weight:200; letter-spacing:0.28em; text-transform:uppercase; color:var(--text-2); }
+    .ph-sep  { width:1px; height:22px; background:var(--border); flex-shrink:0; }
+    .ph-techs { display:flex; gap:0.6rem; flex-wrap:wrap; }
+    .ph-techs span {
+      font-family:var(--f-ui); font-size:0.52rem; letter-spacing:0.14em; text-transform:uppercase;
+      padding:6px 14px; border:1px solid var(--border); border-radius:20px;
+      color:var(--text-3); background:var(--surface);
+    }
+    .ph-cta {
+      font-family:var(--f-ui); font-size:0.6rem; font-weight:300;
+      letter-spacing:0.22em; text-transform:uppercase;
+      text-decoration:none; padding:13px 28px; border-radius:40px;
+      background:linear-gradient(135deg, var(--rose) 0%, #B07898 100%);
+      color:var(--ivory); border:none; cursor:pointer;
+      box-shadow:0 4px 28px rgba(var(--accent-rgb),0.3);
+      transition:all 0.3s; position:relative; overflow:hidden;
+    }
+    .ph-cta::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg, var(--rose-light), var(--lavender)); opacity:0; transition:opacity 0.3s; }
+    .ph-cta:hover::before { opacity:1; }
+    .ph-cta:hover { transform:translateY(-3px); box-shadow:0 10px 44px rgba(var(--accent-rgb),0.45); }
+    .ph-cta span { position:relative; z-index:1; }
+    .ph-scroll-line {
+      position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+      width:1px; height:80px; background:linear-gradient(to bottom, rgba(var(--accent-rgb),0.4), transparent);
+    }
+
+    /* ─── VISUAL SHOWCASE ─── */
+    .proj-visual {
+      position:relative; z-index:2;
+      margin:0 5%; border-radius:var(--radius-lg);
+      overflow:hidden; border:1px solid rgba(255,255,255,0.07);
+      background:rgba(255,255,255,0.025); backdrop-filter:blur(16px);
+      height:clamp(280px, 42vw, 560px);
+    }
+    .proj-visual::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(var(--accent-rgb),0.4), rgba(184,169,217,0.35), transparent);
+    }
+    .pv-chrome {
+      position:absolute; top:0; left:0; right:0; height:42px;
+      border-bottom:1px solid var(--border);
+      display:flex; align-items:center; padding:0 1.4rem; gap:0.45rem;
+      background:rgba(255,255,255,0.02);
+    }
+    .pv-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+    .pv-dot:nth-child(1) { background:rgba(255,92,92,0.45); }
+    .pv-dot:nth-child(2) { background:rgba(255,200,92,0.45); }
+    .pv-dot:nth-child(3) { background:rgba(92,220,130,0.45); }
+    .pv-url {
+      margin-left:1.5rem; background:rgba(255,255,255,0.04); border:1px solid var(--border);
+      border-radius:6px; padding:5px 14px;
+      font-family:var(--f-body); font-size:0.7rem; color:var(--text-3); min-width:200px;
+    }
+    .pv-content {
+      position:absolute; inset:0; top:42px;
+      display:flex; align-items:center; justify-content:center; padding:2rem;
+      overflow:hidden;
+    }
+    .pv-content:has(img) { padding:0; align-items:flex-start; }
+    .pv-content img {
+      width:100%; height:100%;
+      object-fit:cover; object-position:center 0%;
+      display:block;
+      animation:pv-scroll 10s cubic-bezier(0.45,0,0.55,1) 1.8s infinite alternate;
+    }
+    @keyframes pv-scroll {
+      0%,12%  { object-position:center 0%; }
+      88%,100% { object-position:center 100%; }
+    }
+
+    /* ─── CASE SECTIONS ─── */
+    .case-section {
+      position:relative; z-index:2;
+      padding:110px 5%;
+      display:grid; grid-template-columns:200px 1fr;
+      gap:5rem; align-items:start;
+      border-top:1px solid var(--border);
+    }
+    .cs-aside { position:sticky; top:100px; }
+    .cs-num {
+      font-family:var(--f-display); font-style:italic; font-weight:300;
+      font-size:clamp(5rem, 9vw, 9rem); line-height:1;
+      background:linear-gradient(180deg, rgba(var(--accent-rgb),0.22) 0%, transparent 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      user-select:none;
+    }
+    .cs-lbl {
+      font-family:var(--f-ui); font-size:0.58rem; font-weight:300;
+      letter-spacing:0.42em; text-transform:uppercase; color:var(--accent);
+      margin-top:0.4rem;
+    }
+    .cs-headline {
+      font-family:var(--f-display); font-style:italic; font-weight:300;
+      font-size:clamp(1.9rem, 3.8vw, 3.2rem); line-height:1.15;
+      margin-bottom:2rem;
+    }
+    .cs-text {
+      font-size:1rem; line-height:1.88; color:var(--text-2);
+      margin-bottom:2.5rem; max-width:700px;
+    }
+    .cs-text strong { color:var(--text-1); font-weight:400; }
+
+    /* Pain point list */
+    .cs-points { list-style:none; display:flex; flex-direction:column; gap:1rem; margin-bottom:2.5rem; }
+    .cs-points li {
+      display:flex; align-items:flex-start; gap:1rem;
+      padding:1.2rem 1.5rem;
+      background:rgba(255,255,255,0.025); border:1px solid var(--border);
+      border-radius:var(--radius-md);
+      font-size:0.9rem; color:var(--text-2); line-height:1.65;
+      transition:border-color 0.25s, background 0.25s;
+    }
+    .cs-points li:hover { border-color:rgba(var(--accent-rgb),0.2); background:rgba(var(--accent-rgb),0.03); }
+    .cs-points li::before { content:'✦'; color:var(--accent); font-size:0.5rem; flex-shrink:0; margin-top:0.4rem; opacity:0.65; }
+
+    /* Solution cards */
+    .cs-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; margin-bottom:2.5rem; }
+    .cs-card {
+      background:rgba(255,255,255,0.03); backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.07);
+      border-radius:var(--radius-lg); padding:2rem;
+      position:relative; overflow:hidden;
+      transition:border-color 0.35s, box-shadow 0.35s, transform 0.35s;
+      transform-style:preserve-3d; will-change:transform;
+    }
+    .cs-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(var(--accent-rgb),0.35), transparent);
+      opacity:0; transition:opacity 0.35s;
+    }
+    .cs-card:hover::before { opacity:1; }
+    .cs-card:hover { border-color:rgba(var(--accent-rgb),0.22); box-shadow:0 20px 56px rgba(0,0,0,0.35), 0 0 30px rgba(var(--accent-rgb),0.05); }
+    .cs-card-ico { font-size:1.4rem; margin-bottom:1.1rem; display:block; opacity:0.65; }
+    .cs-card-title { font-family:var(--f-display); font-style:italic; font-weight:300; font-size:1.25rem; margin-bottom:0.7rem; line-height:1.2; }
+    .cs-card-txt { font-size:0.84rem; color:var(--text-2); line-height:1.75; }
+
+    /* Result stats */
+    .cs-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; margin-bottom:2.5rem; }
+    .cs-stat {
+      background:rgba(255,255,255,0.03); backdrop-filter:blur(20px);
+      border:1px solid rgba(var(--accent-rgb),0.14);
+      border-radius:var(--radius-lg); padding:2.5rem 2rem; text-align:center;
+      position:relative; overflow:hidden;
+      transition:border-color 0.35s, box-shadow 0.35s, transform 0.35s;
+      transform-style:preserve-3d; will-change:transform;
+    }
+    .cs-stat::before {
+      content:''; position:absolute; top:0; left:20%; right:20%; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(var(--accent-rgb),0.5), transparent);
+    }
+    .cs-stat:hover { border-color:rgba(var(--accent-rgb),0.32); box-shadow:0 16px 50px rgba(var(--accent-rgb),0.1); }
+    .cs-stat-n {
+      font-family:var(--f-display); font-style:italic; font-weight:300;
+      font-size:clamp(2.6rem, 5vw, 4.5rem); line-height:1; display:block; margin-bottom:0.5rem;
+      background:linear-gradient(135deg, var(--rose-light), var(--lavender));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .cs-stat-l { font-family:var(--f-ui); font-size:0.54rem; font-weight:300; letter-spacing:0.26em; text-transform:uppercase; color:var(--text-3); }
+    .cs-stat-desc { font-size:0.82rem; color:var(--text-2); line-height:1.65; margin-top:1rem; }
+
+    /* ─── NEXT PROJECT ─── */
+    #next-proj {
+      position:relative; z-index:2; padding:80px 5%;
+      border-top:1px solid var(--border);
+      display:flex; align-items:center; justify-content:space-between; gap:2rem;
+    }
+    .np-lbl { font-family:var(--f-ui); font-size:0.56rem; font-weight:300; letter-spacing:0.4em; text-transform:uppercase; color:var(--text-3); margin-bottom:0.8rem; }
+    .np-title { font-family:var(--f-display); font-style:italic; font-weight:300; font-size:clamp(2rem, 4.5vw, 3.8rem); line-height:1.1; }
+    .np-btn {
+      font-family:var(--f-ui); font-size:0.6rem; font-weight:300;
+      letter-spacing:0.22em; text-transform:uppercase;
+      text-decoration:none; padding:14px 30px; border-radius:40px;
+      border:1px solid var(--border-gold); color:var(--text-1);
+      white-space:nowrap; transition:all 0.25s; background:transparent;
+      display:flex; align-items:center; gap:0.7rem;
+    }
+    .np-btn::after { content:'→'; transition:transform 0.25s; }
+    .np-btn:hover { background:rgba(var(--accent-rgb),0.1); box-shadow:0 0 28px rgba(var(--accent-rgb),0.2); }
+    .np-btn:hover::after { transform:translateX(5px); }
+
+    /* ─── FOOTER ─── */
+    footer { position:relative; z-index:2; border-top:1px solid var(--border); padding:2.5rem 5%; display:flex; align-items:center; justify-content:space-between; }
+    .ft { font-family:var(--f-ui); font-size:0.53rem; letter-spacing:0.2em; color:var(--text-3); }
+    .ft-heart { color:var(--rose); }
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:1024px) { .cs-cards { grid-template-columns:1fr 1fr; } }
+    @media(max-width:768px) {
+      body { cursor:auto; }
+      .c-dot, .c-ring { display:none; }
+      .case-section { grid-template-columns:1fr; gap:2rem; padding:80px 6%; }
+      .cs-aside { position:static; display:flex; align-items:baseline; gap:1.2rem; }
+      .cs-lbl { margin-top:0; }
+      .cs-cards { grid-template-columns:1fr; }
+      .cs-stats { grid-template-columns:1fr 1fr; }
+      #next-proj { flex-direction:column; align-items:flex-start; }
+      .proj-visual { margin:0 4%; height:clamp(200px, 52vw, 380px); }
+      #proj-hero { padding:120px 6% 80px; }
+      .ph-footer { flex-direction:column; align-items:flex-start; gap:1.5rem; }
+      .ph-sep { display:none; }
+      .nav-tag { display:none; }
+      footer { flex-direction:column; gap:0.8rem; text-align:center; }
+    }
+    @media(max-width:480px) {
+      .cs-stats { grid-template-columns:1fr; }
+      .cs-cards { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas class="cursor-trail" id="cursorTrail" style="position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:10000;"></canvas>
+
+  <div class="aurora">
+    <div class="blob blob-1" id="ablob1" style="background:radial-gradient(circle,#7B5EA7 0%,transparent 65%)"></div>
+    <div class="blob blob-2" style="background:radial-gradient(circle,#C9906A 0%,transparent 65%)"></div>
+    <div class="blob blob-3" style="background:radial-gradient(circle,#B8A9D9 0%,transparent 65%)"></div>
+  </div>
+
+  <canvas id="pcv"></canvas>
+
+  <nav id="nav">
+    <a href="index.html" class="nav-back">Portfolio</a>
+    <span class="nav-tag" id="navTag">Case Study</span>
+    <a href="#" class="nav-live" id="navLive" target="_blank">View Live ↗</a>
+  </nav>
+
+  <!-- Hero -->
+  <section id="proj-hero">
+    <div class="ph-meta">
+      <span class="ph-tag" id="phTag"></span>
+      <span class="ph-year" id="phYear"></span>
+    </div>
+    <h1 class="ph-title" id="phTitle"></h1>
+    <div class="ph-footer">
+      <span class="ph-role" id="phRole"></span>
+      <div class="ph-sep"></div>
+      <div class="ph-techs" id="phTechs"></div>
+      <a href="#" class="ph-cta" id="phCta" target="_blank"><span>View Live ↗</span></a>
+    </div>
+    <div class="ph-scroll-line"></div>
+  </section>
+
+  <!-- Visual showcase -->
+  <div class="proj-visual reveal">
+    <div class="pv-chrome">
+      <div class="pv-dot"></div>
+      <div class="pv-dot"></div>
+      <div class="pv-dot"></div>
+      <span class="pv-url" id="pvUrl"></span>
+    </div>
+    <div class="pv-content" id="pvContent"></div>
+  </div>
+
+  <!-- 01 El Reto -->
+  <section class="case-section">
+    <div class="cs-aside reveal">
+      <div class="cs-num">01</div>
+      <div class="cs-lbl">The Challenge</div>
+    </div>
+    <div>
+      <h2 class="cs-headline reveal" id="retoH"></h2>
+      <p  class="cs-text reveal"    id="retoT" style="transition-delay:.12s"></p>
+      <ul class="cs-points reveal"  id="retoP" style="transition-delay:.22s"></ul>
+    </div>
+  </section>
+
+  <!-- 02 La Solución -->
+  <section class="case-section">
+    <div class="cs-aside reveal" style="transition-delay:.05s">
+      <div class="cs-num">02</div>
+      <div class="cs-lbl">The Solution</div>
+    </div>
+    <div>
+      <h2 class="cs-headline reveal" id="solH"></h2>
+      <p  class="cs-text reveal"    id="solT" style="transition-delay:.12s"></p>
+      <div class="cs-cards reveal"  id="solC" style="transition-delay:.22s"></div>
+    </div>
+  </section>
+
+  <!-- 03 El Resultado -->
+  <section class="case-section">
+    <div class="cs-aside reveal" style="transition-delay:.05s">
+      <div class="cs-num">03</div>
+      <div class="cs-lbl">The Result</div>
+    </div>
+    <div>
+      <h2 class="cs-headline reveal" id="resH"></h2>
+      <p  class="cs-text reveal"    id="resT" style="transition-delay:.12s"></p>
+      <div class="cs-stats reveal"  id="resS" style="transition-delay:.22s"></div>
+    </div>
+  </section>
+
+  <!-- Next project -->
+  <section id="next-proj" class="reveal">
+    <div>
+      <p class="np-lbl">Next Project</p>
+      <h3 class="np-title" id="npTitle"></h3>
+    </div>
+    <a href="#" class="np-btn" id="npBtn">View Project</a>
+  </section>
+
+  <footer>
+    <p class="ft">© 2026 Keny Rodriguez. All rights reserved.</p>
+    <p class="ft">Crafted with <span class="ft-heart">♥</span> &amp; precision</p>
+  </footer>
+
+<script>
+/* ── Cursor Trail ── */
+const trailCanvas=document.getElementById('cursorTrail');
+const tctx=trailCanvas.getContext('2d',{alpha:true});
+let TW,TH;
+function resizeTrail(){const dpr=window.devicePixelRatio||1;TW=window.innerWidth;TH=window.innerHeight;trailCanvas.width=TW*dpr;trailCanvas.height=TH*dpr;trailCanvas.style.width=TW+'px';trailCanvas.style.height=TH+'px';tctx.scale(dpr,dpr);}
+resizeTrail();window.addEventListener('resize',resizeTrail);
+const TC={length:55,colorBase:[232,180,154],colorEnd:[184,169,217],alphaBase:0.92,alphaEnd:0,maxWidth:4.5,minWidth:0.3,damping:0.62,speedMax:520,speedSmoothing:0.18};
+let curX=-300,curY=-300,prevX=-300,prevY=-300,lastT=0,smoothSpd=0,isHover=false;
+const chain=Array.from({length:TC.length},()=>({x:-300,y:-300}));
+document.addEventListener('mousemove',e=>{curX=e.clientX;curY=e.clientY;});
+function lerp(a,b,t){return a+(b-a)*t;}
+function lerpCol(c1,c2,t){return[c1[0]+(c2[0]-c1[0])*t|0,c1[1]+(c2[1]-c1[1])*t|0,c1[2]+(c2[2]-c1[2])*t|0];}
+;(function drawTrail(ts){requestAnimationFrame(drawTrail);
+const dt=Math.min(ts-lastT,50);lastT=ts;
+const dx=curX-prevX,dy=curY-prevY;
+const rawSpd=dt>0?Math.sqrt(dx*dx+dy*dy)/(dt/1000):0;
+smoothSpd=lerp(smoothSpd,Math.min(rawSpd,TC.speedMax),TC.speedSmoothing);
+const spdT=smoothSpd/TC.speedMax;
+prevX=curX;prevY=curY;
+chain[0].x=lerp(chain[0].x,curX,0.38);chain[0].y=lerp(chain[0].y,curY,0.38);
+for(let i=1;i<TC.length;i++){const f=Math.pow(TC.damping,i*0.06)*0.38;chain[i].x=lerp(chain[i].x,chain[i-1].x,Math.max(f,0.04));chain[i].y=lerp(chain[i].y,chain[i-1].y,Math.max(f,0.04));}
+tctx.clearRect(0,0,TW,TH);
+for(let i=0;i<TC.length-1;i++){const t=i/(TC.length-1);const col=lerpCol(TC.colorBase,TC.colorEnd,t);const a=TC.alphaBase*(1-t)*(1-t);const w=lerp(TC.maxWidth+spdT*3,TC.minWidth,t);tctx.beginPath();tctx.moveTo(chain[i].x,chain[i].y);tctx.lineTo(chain[i+1].x,chain[i+1].y);tctx.strokeStyle=`rgba(${col[0]},${col[1]},${col[2]},${a.toFixed(3)})`;tctx.lineWidth=isHover?w*1.6:w;tctx.lineCap='round';tctx.lineJoin='round';tctx.stroke();}
+const dotR=isHover?5:3.5;tctx.beginPath();tctx.arc(chain[0].x,chain[0].y,dotR,0,Math.PI*2);tctx.fillStyle=`rgba(${TC.colorBase[0]},${TC.colorBase[1]},${TC.colorBase[2]},0.95)`;tctx.fill();
+})();
+
+/* ── Particles ── */
+const pcv=document.getElementById('pcv'),ctx=pcv.getContext('2d');
+let W,H,pts=[];
+function rsz(){W=pcv.width=window.innerWidth;H=pcv.height=window.innerHeight;}rsz();window.addEventListener('resize',rsz);
+class Pt{constructor(){this.r()}r(){this.x=Math.random()*W;this.y=Math.random()*H;this.sz=Math.random()*1.4+0.4;this.vx=(Math.random()-.5)*.22;this.vy=(Math.random()-.5)*.22;this.op=Math.random()*.28+.07;this.c=Math.random()>.5?`rgba(201,144,106,${this.op})`:`rgba(184,169,217,${this.op})`;}tick(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.r();}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.sz,0,Math.PI*2);ctx.fillStyle=this.c;ctx.fill();}}
+for(let i=0;i<75;i++)pts.push(new Pt());
+;(function L(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.tick();p.draw();});requestAnimationFrame(L);})();
+
+/* ── Nav scroll ── */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>50));
+
+/* ── Scroll reveal ── */
+const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.08,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+/* ── 3D tilt on cards & stats ── */
+document.addEventListener('mousemove',e=>{
+  document.querySelectorAll('.cs-card,.cs-stat').forEach(card=>{
+    const r=card.getBoundingClientRect();
+    if(e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom){
+      const rx_=((e.clientY-r.top-r.height/2)/(r.height/2))*-5;
+      const ry_=((e.clientX-r.left-r.width/2)/(r.width/2))*5;
+      card.style.transform=`perspective(800px) rotateX(${rx_}deg) rotateY(${ry_}deg) translateZ(4px)`;
+    }else{card.style.transform='perspective(800px) rotateX(0) rotateY(0)';}
+  });
+});
+
+/* ════════════════════════════════════════
+   PROJECT DATA
+════════════════════════════════════════ */
+const DATA = [
+  {
+    id:'aurum-hotel', tag:'Creative Dev', year:'2025',
+    title:['Aurum','Hotel'], role:'Solo Creative Developer',
+    tech:['GSAP / ScrollTrigger','Lenis Smooth Scroll','Vanilla JS','CSS3','SVG feTurbulence'],
+    live:'https://kenpaolarod.github.io/aurum-hotel/', color:'#C9906A', rgb:'201,144,106',
+    pvUrl:'kenpaolarod.github.io/aurum-hotel',
+    pvContent:`<iframe src="https://kenpaolarod.github.io/aurum-hotel/" style="width:100%;height:100%;border:none;display:block;" title="Aurum Hotel — Live Preview"></iframe>`,
+    reto:{
+      headline:'Replicate $50k+ agency UI with only vanilla HTML, CSS & JS',
+      text:`The goal was to build the kind of animated, immersive hotel experience you normally see from high-end creative studios — the kind of web that makes you stop scrolling and just <em>look</em>. The constraint: <strong>zero frameworks, no build tools, no shortcuts</strong>. Pure HTML, CSS, and vanilla JS. The hardest part wasn't the animations themselves — it was orchestrating them correctly without breaking scroll behavior across the entire page.`,
+      points:[
+        'Wire Lenis smooth scroll into GSAP\'s RAF loop — do it wrong and the whole page breaks',
+        'Build ScrollTrigger sequences with pin + scrub that stay perfectly synced to scroll velocity',
+        'Implement text animations (clip-path reveal, word-flip, mask reveal) at production agency quality',
+        'Create a cinematic visual atmosphere — grain, aurora, blur — using only CSS, no image assets',
+      ]
+    },
+    solucion:{
+      headline:'Every animation hand-crafted — from the RAF loop to the clip-path mask',
+      text:`I solved the hardest constraint first: integrating Lenis with GSAP. Instead of running them independently (which causes jitter and scroll desyncs), I fed the Lenis tick directly into GSAP's RAF using <strong>gsap.ticker.add()</strong> and disabled GSAP's default lag smoothing. From there, I built ScrollTrigger timelines with pin, scrub, and chained fromTo tweens animating multiple CSS properties simultaneously — the exact pattern that separates production code from tutorial code.`,
+      cards:[
+        {ico:'✦',title:'Lenis + GSAP RAF Sync',txt:'Lenis wired directly into GSAP\'s requestAnimationFrame loop — not run in parallel. The correct integration that separates mid/senior devs from juniors who just follow the docs.'},
+        {ico:'◈',title:'Advanced ScrollTrigger',txt:'pin + scrub synced to real scroll velocity, chained timelines, and multi-property fromTo tweens. Not the tutorial version — the production version used in agency work.'},
+        {ico:'◎',title:'Agency Text Animations',txt:'clip-path panel reveals, word-flip with CSS overflow masking, and title mask reveals — the exact techniques used in $50k+ creative agency sites, built from scratch.'},
+      ]
+    },
+    resultado:{
+      headline:'Agency-grade UI. Zero frameworks. Source code open on GitHub.',
+      text:`The live site demonstrates that the most complex frontend interactions don't require React, a Webflow license, or a design system. They require understanding how the browser actually works. Every recruiter or hiring manager can open DevTools and inspect — no node_modules, no build step, no abstraction layer. Just clean, deliberate code that does exactly what it looks like it's doing.`,
+      stats:[
+        {n:'0',    l:'Frameworks',       desc:'Vanilla HTML, CSS & JS — the browser is the only runtime. No React, no Vue, no Next.js'},
+        {n:'100%', l:'Custom Animation', desc:'Every scroll effect, reveal, and transition written by hand — GSAP for orchestration, CSS for atmosphere'},
+        {n:'$50k+',l:'Studio Aesthetic', desc:'The visual caliber of agencies that charge this per project — built solo, without a team or a budget'},
+      ]
+    }
+  },
+  {
+    id:'grocery-landing', tag:'Landing Page', year:'2024',
+    title:['Grocery','Delivery'], role:'Designer & Developer',
+    tech:['HTML5','CSS3','Flexbox / Grid','Logo Design','GitHub Pages'],
+    live:'https://kenpaolarod.github.io/Landing-de-ventas/', color:'#7DB58A', rgb:'125,181,138',
+    pvUrl:'kenpaolarod.github.io/Landing-de-ventas',
+    pvContent:`<img src="imgs/projects/salesLanding.png" alt="Grocery Delivery landing page screenshot" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />`,
+    reto:{
+      headline:'Design and build a polished landing page with only HTML & CSS',
+      text:`The challenge was to create a complete, professional sales experience for a grocery delivery service using nothing but HTML and CSS — no frameworks, no page builders, no shortcuts. But this project went further: before writing a single line of code, the <strong>logo, brand identity, and color palette</strong> were designed from scratch to give the page a real, cohesive feel.`,
+      points:[
+        'Build a multi-section sales page using only core HTML & CSS fundamentals',
+        'Design a logo and brand identity from scratch before touching any code',
+        'Structure every section around real sales-page conversion principles',
+        'Deliver a fully responsive experience across mobile, tablet, and desktop',
+      ]
+    },
+    solucion:{
+      headline:'Brand identity first, then code — from logo to live site',
+      text:`Before writing any markup, I defined the full visual direction: custom logo, color palette, typography, and brand personality. With the identity locked in, I built a multi-section landing page covering every key element of a high-converting sales page — hero with CTA, product category grid, brand trust section, contact form, and footer.`,
+      cards:[
+        {ico:'✏',title:'Logo & Branding',txt:'Custom logo designed from scratch, along with a full color palette and visual style — all defined before a single line of code was written.'},
+        {ico:'◈',title:'Pure CSS Layouts',txt:'Every section structured with Flexbox and Grid — no utility classes, no frameworks. Clean fundamentals from the ground up.'},
+        {ico:'◎',title:'Responsive Design',txt:'Mobile-first layout that adapts cleanly across breakpoints, from small phones to wide desktops.'},
+      ]
+    },
+    resultado:{
+      headline:'A complete brand and product, live on GitHub Pages',
+      text:`The project demonstrates the full range from design to deployment — logo creation, brand identity, front-end fundamentals, and a live published site. It proves that strong visual and technical skills can coexist without relying on any external tools or frameworks.`,
+      stats:[
+        {n:'6',    l:'Sections Built',   desc:'Hero, Featured Deals, Category Grid, About, Contact Form, and Footer'},
+        {n:'0',    l:'Frameworks Used',  desc:'Pure HTML & CSS — no Bootstrap, no Tailwind, no shortcuts'},
+        {n:'100%', l:'Custom Design',    desc:'Logo, palette, and brand identity designed entirely from scratch'},
+      ]
+    }
+  },
+  {
+    id:'medellin-real-estate', tag:'Lead Generation', year:'2024',
+    title:['Medellín','Real Estate'], role:'Full-Stack Developer',
+    tech:['HTML5','CSS3','JavaScript','PHP','JSON i18n','Google Ads'],
+    live:'https://medellinrealestate.com.co/', color:'#C4975A', rgb:'196,151,90',
+    pvUrl:'medellinrealestate.com.co',
+    pvContent:`<img src="imgs/projects/medellinRealEstate.png" alt="Medellín Real Estate website screenshot" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />`,
+    reto:{
+      headline:'One site, two audiences — bilingual and built for paid ads',
+      text:`The client needed a single website that could serve two completely different audiences simultaneously: Spanish-speaking Colombian buyers and English-speaking international investors, retirees, and expats. On top of that, the site had to be <strong>fast, CMS-free, and optimized for Google Ads</strong> — every section designed to convert paid traffic into real leads.`,
+      points:[
+        'Bilingual support (EN/ES) without a page reload or third-party translation plugin',
+        'No CMS — built lean from scratch to maximize speed and Google Ads Quality Score',
+        'Every page section designed around a single conversion goal: contact form or WhatsApp',
+        'Property listings needed JavaScript filtering by type without a backend query',
+      ]
+    },
+    solucion:{
+      headline:'JSON-based bilingual system, PHP lead capture, built for conversion',
+      text:`I built a fully custom multi-page website — no WordPress, no page builder. The bilingual system uses a <strong>JSON translation file + vanilla JavaScript</strong> to swap all page content dynamically without a reload. PHP handles the contact form server-side for reliable lead delivery. Every page was architected around conversion: clear CTAs, a floating WhatsApp button, and fast load times that keep Google Ads cost-per-click low.`,
+      cards:[
+        {ico:'◈',title:'JSON Bilingual System',txt:'All site copy stored in a JSON file. JS injects content on language toggle — seamless switch between EN and ES with zero page reload.'},
+        {ico:'▲',title:'PHP Lead Capture',txt:'Server-side contact form built in PHP for reliable email delivery and lead capture without depending on third-party services.'},
+        {ico:'⚡',title:'Google Ads Optimized',txt:'Lean build, fast load times, single-focus CTAs per section — structured to maximize Quality Score and minimize cost-per-lead.'},
+      ]
+    },
+    resultado:{
+      headline:'A live, revenue-driving site actively running Google Ads',
+      text:`The site is live and running paid campaigns targeting English-speaking audiences outside Colombia — investors, retirees, and expats. With properties ranging from ~720M to ~4.8B COP, every lead captured represents significant business value. The JSON bilingual system scales easily as new listings and pages are added.`,
+      stats:[
+        {n:'2',   l:'Languages',        desc:'Full EN/ES support with dynamic JSON injection — no reload, no plugin'},
+        {n:'0',   l:'CMS Overhead',     desc:'Pure HTML, CSS, JS & PHP — built lean for speed and Google Ads performance'},
+        {n:'6',   l:'Property Types',   desc:'JS-filtered listings: Apartment, House, Finca, Lote, Building, Hotel'},
+      ]
+    }
+  },
+  {
+    id:'crud-todo', tag:'Personal Project', year:'2024',
+    title:['To-Do','App'], role:'Solo Developer',
+    tech:['HTML5','CSS3','JavaScript','localStorage','GitHub Pages'],
+    live:'https://kenpaolarod.github.io/crud-app/', color:'#7B7EC4', rgb:'123,126,196',
+    pvUrl:'kenpaolarod.github.io/crud-app',
+    pvContent:`<img src="imgs/projects/toDo.png" alt="CRUD To-Do App screenshot" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />`,
+    reto:{
+      headline:'Master JavaScript fundamentals by building something real',
+      text:`The goal was simple but demanding: build a fully functional task management app using <strong>only vanilla JavaScript</strong> — no frameworks, no libraries — covering all four CRUD operations, and make the data persist between browser sessions without any back-end or database.`,
+      points:[
+        'Implement Create, Read, Update, and Delete with pure DOM manipulation',
+        'Persist task data across page reloads and browser closes without a server',
+        'Build an inline edit flow that tracks application state cleanly in JS',
+        'Validate input and handle edge cases — empty submissions, edit cancellation',
+      ]
+    },
+    solucion:{
+      headline:'Full CRUD logic, localStorage persistence, zero dependencies',
+      text:`I built a single-page app where users can add tasks, switch them to an inline edit mode, save changes, and delete them. All task data is stored in <strong>localStorage</strong> and reloaded on every visit — the list survives browser refreshes and closed tabs with no server required. Every interaction updates the DOM in real time and syncs to storage instantly.`,
+      cards:[
+        {ico:'◈',title:'Full CRUD in Vanilla JS',txt:'All four operations — create, read, update, delete — built from scratch with pure DOM manipulation and event listeners.'},
+        {ico:'◎',title:'localStorage Persistence',txt:'Tasks are saved to the browser\'s Web Storage API and restored on load — data survives refreshes and closed tabs.'},
+        {ico:'▲',title:'Inline Edit Mode',txt:'Tasks switch to an editable state with Update/Cancel controls — clean UX without modals or page reloads.'},
+      ]
+    },
+    resultado:{
+      headline:'A tool I actually use — and a proof of JS fundamentals',
+      text:`What started as a skills exercise became a daily-use productivity tool. The project demonstrates that strong JavaScript fundamentals — state management, DOM manipulation, event handling, and the Web Storage API — can produce genuinely useful software without a single dependency.`,
+      stats:[
+        {n:'4',    l:'CRUD Operations',  desc:'Create, Read, Update, Delete — all handled with vanilla JavaScript'},
+        {n:'0',    l:'Dependencies',     desc:'No jQuery, no frameworks — all logic written from scratch'},
+        {n:'100%', l:'Client-side',      desc:'localStorage persistence — no server, no database, no back-end required'},
+      ]
+    }
+  },
+  {
+    id:'javken-dashboard', tag:'API Integration', year:'2025',
+    title:['Javken','Dashboard'], role:'Solo Developer',
+    tech:['HTML5','CSS3','JavaScript','REST API','GitHub Pages'],
+    live:'https://kenpaolarod.github.io/dashboard/', color:'#4A9DB5', rgb:'74,157,181',
+    pvUrl:'kenpaolarod.github.io/dashboard',
+    pvContent:`<img src="imgs/projects/stockMarket.png" alt="Javken Stock Market Dashboard screenshot" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />`,
+    reto:{
+      headline:'Visualize live financial data without a finance background',
+      text:`The challenge was twofold: learn enough about financial markets to know <em>what</em> to display, then figure out <strong>how to fetch, parse, and render real stock data</strong> in a clean, usable interface — all with vanilla JavaScript and a free-tier API enforcing a hard 100 calls/day limit.`,
+      points:[
+        'Learn financial concepts from scratch: price, change %, market cap, volume, P/E ratio',
+        'Work within a 100 API calls/day hard limit on the free plan — every request had to count',
+        'Fetch and parse live market data using async/await and the Fetch API',
+        'Render interactive charts on card click with no chart library or external dependency',
+      ]
+    },
+    solucion:{
+      headline:'Research-first approach: financial literacy before a single line of code',
+      text:`Before writing any JavaScript, I spent time understanding what each financial metric actually means and why a trader would care about it. With that foundation, I designed a dashboard that surfaces the right data clearly. API calls are cached in sessionStorage to stay under the 100/day limit, and clicking any stock card renders a price history chart drawn directly to a <strong>Canvas element</strong> — no Chart.js, no dependencies.`,
+      cards:[
+        {ico:'⚡',title:'Async Data Fetching',txt:'All market data loaded with async/await and the Fetch API — clean promise chains, proper error handling, and loading states throughout.'},
+        {ico:'◈',title:'Smart Call Budget',txt:'API requests are cached in sessionStorage and strategically batched to stay under the 100 calls/day free-tier limit without degrading UX.'},
+        {ico:'◎',title:'Canvas Chart Rendering',txt:'Interactive price history charts rendered on card click using the HTML Canvas API — no Chart.js, no libraries, pure vanilla code.'},
+      ]
+    },
+    resultado:{
+      headline:'A live dashboard that fetches, renders, and respects its limits',
+      text:`Javken is a fully functional stock market dashboard that loads live data, renders interactive charts, and fits entirely within a zero-cost free API plan. More than a project, it was a deliberate exercise in learning a new domain, working within real constraints, and building something genuinely useful from scratch.`,
+      stats:[
+        {n:'100',   l:'Calls / Day',     desc:'Free-tier API budget respected — strategic caching keeps the full dashboard functional'},
+        {n:'0',     l:'Dependencies',    desc:'No chart libraries, no frameworks — all rendering done with vanilla JS and Canvas API'},
+        {n:'100%',  l:'Domain Research', desc:'Full financial market research phase completed before writing the first line of code'},
+      ]
+    }
+  },
+  {
+    id:'saredi-jewelry', tag:'E-Commerce', year:'2024',
+    title:['Saredi','Jewelry'], role:'WordPress Developer',
+    tech:['WordPress','WooCommerce','Elementor','Custom CSS','Facebook Pixel'],
+    live:'https://saredijewelry.com/', color:'#D4748A', rgb:'212,116,138',
+    pvUrl:'saredijewelry.com',
+    pvContent:`<img src="imgs/projects/jewelryStore.png" alt="Saredi Jewelry store screenshot" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />`,
+    reto:{
+      headline:'Building a luxury store for a Latina brand from scratch',
+      text:`Saredi Jewelry carries the names of its founder's grandmother Edith and mother Sara — a tribute to generational strength and feminine elegance. The brand had a clear identity: bold, feminine, and authentically Latina. The challenge was to create an e-commerce store that <strong>reflected that cultural identity and felt premium</strong>, while remaining manageable for an independent small business owner.`,
+      points:[
+        'The brand had a clear identity but no digital presence to sell from',
+        'The catalog needed to be organized by jewelry type with individual category pages',
+        'The visual experience had to feel luxurious without being cold — warm, Latina, authentic',
+        'The owner needed to manage products and orders independently',
+      ]
+    },
+    solucion:{
+      headline:'WordPress + WooCommerce with Latin-luxury identity from start to finish',
+      text:`I designed and developed the complete store in WordPress with WooCommerce, using Elementor to build custom layouts on each page. Every design decision reinforces the brand's personality — from the hero headline <em>"You Were Born to Stand Out"</em> to product names like "La Inquebrantable" and "A Night in Medellín" that speak directly to the Latina audience.`,
+      cards:[
+        {ico:'◈',title:'WooCommerce Setup',txt:'Full store with product pages, cart, checkout, and customer accounts — ready to sell from day 1.'},
+        {ico:'✦',title:'CSS Ticker Animation',txt:'Animated free shipping banner built with pure @keyframes — no plugins, zero external dependencies.'},
+        {ico:'▲',title:'Brand Identity System',txt:'Color palette, typography, and naming conventions developed together to reflect Latin luxury.'},
+      ]
+    },
+    resultado:{
+      headline:'Store ready to sell with a complete identity',
+      text:`The store launched with a cohesive visual identity consistent from the homepage to every product detail page. With Facebook Pixel configured and the catalog structured, the brand is ready to scale with paid social campaigns and continue growing independently.`,
+      stats:[
+        {n:'16+',   l:'Live Products',     desc:'Published across 4 categories: Earrings, Bracelets, Necklaces, and Rings'},
+        {n:'4',     l:'Categories',        desc:'With individual landing pages designed by jewelry type'},
+        {n:'0',     l:'Animation Plugins', desc:'The animated ticker was built with pure CSS — no third-party dependencies'},
+      ]
+    }
+  },
+];
+
+/* ── Read URL param & render ── */
+const pid   = new URLSearchParams(window.location.search).get('id') || 'aurora-ui-kit';
+const pIdx  = DATA.findIndex(p => p.id === pid);
+const proj  = DATA[pIdx] ?? DATA[0];
+const next  = DATA[(pIdx + 1) % DATA.length];
+
+/* Apply accent */
+document.documentElement.style.setProperty('--accent', proj.color);
+document.documentElement.style.setProperty('--accent-rgb', proj.rgb);
+document.getElementById('ablob1').style.background = `radial-gradient(circle, ${proj.color}99 0%, transparent 65%)`;
+
+/* Page title */
+document.title = `${proj.title.join(' ')} — Keny Rodriguez`;
+
+/* Nav */
+document.getElementById('navTag').textContent  = proj.tag;
+document.getElementById('navLive').href        = proj.live;
+
+/* Hero */
+document.getElementById('phTag').textContent  = proj.tag;
+document.getElementById('phYear').textContent = proj.year;
+document.getElementById('phTitle').innerHTML  = proj.title.map((t,i) =>
+  `<span class="ph-tl" style="animation-delay:${0.45+i*0.17}s${i===1
+    ? ';margin-left:clamp(2rem,8vw,8rem);background:linear-gradient(125deg,var(--rose-light) 0%,var(--lavender-light) 50%,var(--ivory) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text'
+    : ''}">${t}</span>`
+).join('');
+document.getElementById('phRole').textContent = proj.role;
+proj.tech.forEach(t => {
+  const s = document.createElement('span'); s.textContent = t;
+  document.getElementById('phTechs').appendChild(s);
+});
+document.getElementById('phCta').href = proj.live;
+
+/* Visual */
+document.getElementById('pvUrl').textContent      = proj.pvUrl;
+document.getElementById('pvContent').innerHTML    = proj.pvContent;
+
+/* El Reto */
+document.getElementById('retoH').textContent      = proj.reto.headline;
+document.getElementById('retoT').innerHTML        = proj.reto.text;
+proj.reto.points.forEach(pt => {
+  const li = document.createElement('li');
+  li.textContent = pt;
+  document.getElementById('retoP').appendChild(li);
+});
+
+/* La Solución */
+document.getElementById('solH').textContent       = proj.solucion.headline;
+document.getElementById('solT').innerHTML         = proj.solucion.text;
+proj.solucion.cards.forEach(c => {
+  const el = document.createElement('div'); el.className = 'cs-card';
+  el.innerHTML = `<span class="cs-card-ico">${c.ico}</span><h3 class="cs-card-title">${c.title}</h3><p class="cs-card-txt">${c.txt}</p>`;
+  document.getElementById('solC').appendChild(el);
+});
+
+/* El Resultado */
+document.getElementById('resH').textContent       = proj.resultado.headline;
+document.getElementById('resT').innerHTML         = proj.resultado.text;
+proj.resultado.stats.forEach(s => {
+  const el = document.createElement('div'); el.className = 'cs-stat';
+  el.innerHTML = `<span class="cs-stat-n">${s.n}</span><span class="cs-stat-l">${s.l}</span><p class="cs-stat-desc">${s.desc}</p>`;
+  document.getElementById('resS').appendChild(el);
+});
+
+/* Next project */
+document.getElementById('npTitle').textContent = next.title.join(' ');
+document.getElementById('npBtn').href          = `project.html?id=${next.id}`;
+
+/* Re-observe dynamically added elements */
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+/* Cursor grow on interactive elements */
+document.querySelectorAll('a, button, .cs-card, .cs-stat, .cs-points li').forEach(el => {
+  el.addEventListener('mouseenter', () => isHover = true);
+  el.addEventListener('mouseleave', () => isHover = false);
+});
+</script>
+</body>
+</html>
