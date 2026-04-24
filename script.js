@@ -264,12 +264,6 @@ document.querySelectorAll('.stag').forEach(el => {
 /* ── Projects ── */
 const projects = [
   {
-    tag: 'Creative Dev', title: 'Aurum Hotel',
-    desc: 'Agency-grade luxury hotel experience built in vanilla HTML, CSS & JS — no frameworks. Advanced GSAP: ScrollTrigger with pin + scrub synced to scroll velocity, chained timelines, and multi-property fromTo. Lenis smooth scroll wired directly into GSAP\'s RAF loop. Clip-path panel reveals, word-flip animations with CSS overflow masking, and cinematic CSS grain via SVG feTurbulence. The kind of UI you usually see from studios charging $50k+.',
-    tech: ['GSAP / ScrollTrigger', 'Lenis Smooth Scroll', 'Vanilla JS', 'CSS3', 'SVG feTurbulence'],
-    wide: true, link: 'project.html?id=aurum-hotel'
-  },
-  {
     tag: 'AI & Brand', title: 'Nova AI Vodka',
     desc: 'Editorial marketing site for NOVA — "the first vodka distilled by intelligence" — built in Next.js. Monochrome luxury aesthetic with monospace batch numerals, cinematic product photography, and a live AI Bartender that generates custom cocktail recipes from mood, complexity, and flavor inputs. Batch scanning flow (QR/NFC) unlocks personalized content per bottle.',
     tech: ['Next.js', 'React', 'AI Integration', 'Tailwind CSS', 'Vercel'],
