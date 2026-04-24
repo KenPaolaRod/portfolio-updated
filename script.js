@@ -23,8 +23,8 @@ const TC = {
   colorEnd:       [184, 169, 217],   // lavender
   alphaBase:      0.92,
   alphaEnd:       0,
-  maxWidth:       4.5,
-  minWidth:       0.3,
+  maxWidth:       2.2,
+  minWidth:       0.15,
   damping:        0.62,
   speedInfluence: 0.55,
   speedMax:       520,
@@ -79,20 +79,20 @@ function lerpCol(c1, c2, t) {
     const t   = i / (TC.length - 1);
     const col = lerpCol(TC.colorBase, TC.colorEnd, t);
     const a   = TC.alphaBase * (1 - t) * (1 - t);           // quadratic fade
-    const w   = lerp(TC.maxWidth + spdT * 3, TC.minWidth, t);
+    const w   = lerp(TC.maxWidth + spdT * 1.2, TC.minWidth, t);
 
     tctx.beginPath();
     tctx.moveTo(chain[i].x,   chain[i].y);
     tctx.lineTo(chain[i+1].x, chain[i+1].y);
     tctx.strokeStyle = `rgba(${col[0]},${col[1]},${col[2]},${a.toFixed(3)})`;
-    tctx.lineWidth   = isHover ? w * 1.6 : w;
+    tctx.lineWidth   = isHover ? w * 1.3 : w;
     tctx.lineCap     = 'round';
     tctx.lineJoin    = 'round';
     tctx.stroke();
   }
 
   // Crisp dot at cursor tip
-  const dotR = isHover ? 5 : 3.5;
+  const dotR = isHover ? 3 : 2;
   tctx.beginPath();
   tctx.arc(chain[0].x, chain[0].y, dotR, 0, Math.PI * 2);
   tctx.fillStyle = `rgba(${TC.colorBase[0]},${TC.colorBase[1]},${TC.colorBase[2]},0.95)`;
@@ -268,6 +268,12 @@ const projects = [
     desc: 'Agency-grade luxury hotel experience built in vanilla HTML, CSS & JS — no frameworks. Advanced GSAP: ScrollTrigger with pin + scrub synced to scroll velocity, chained timelines, and multi-property fromTo. Lenis smooth scroll wired directly into GSAP\'s RAF loop. Clip-path panel reveals, word-flip animations with CSS overflow masking, and cinematic CSS grain via SVG feTurbulence. The kind of UI you usually see from studios charging $50k+.',
     tech: ['GSAP / ScrollTrigger', 'Lenis Smooth Scroll', 'Vanilla JS', 'CSS3', 'SVG feTurbulence'],
     wide: true, link: 'project.html?id=aurum-hotel'
+  },
+  {
+    tag: 'AI & Brand', title: 'Nova AI Vodka',
+    desc: 'Editorial marketing site for NOVA — "the first vodka distilled by intelligence" — built in Next.js. Monochrome luxury aesthetic with monospace batch numerals, cinematic product photography, and a live AI Bartender that generates custom cocktail recipes from mood, complexity, and flavor inputs. Batch scanning flow (QR/NFC) unlocks personalized content per bottle.',
+    tech: ['Next.js', 'React', 'AI Integration', 'Tailwind CSS', 'Vercel'],
+    wide: false, link: 'project.html?id=nova-ai-vodka'
   },
   {
     tag: 'E-Commerce', title: 'Saredi Jewelry',

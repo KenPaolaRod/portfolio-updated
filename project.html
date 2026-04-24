@@ -7,6 +7,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400;1,500;1,600&family=Josefin+Sans:wght@100;200;300;400;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <!-- PostHog -->
+  <script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_CPDDToW3DamzoTSgzHN8mPrjyf3EPYLUZ7SWWuRMQAAp', {
+      api_host: 'https://us.i.posthog.com',
+      person_profiles: 'identified_only',
+      defaults: '2025-05-24'
+    });
+  </script>
   <style>
     /* ─── TOKENS ─── */
     :root {
@@ -537,6 +547,42 @@ const DATA = [
         {n:'0',    l:'Frameworks',       desc:'Vanilla HTML, CSS & JS — the browser is the only runtime. No React, no Vue, no Next.js'},
         {n:'100%', l:'Custom Animation', desc:'Every scroll effect, reveal, and transition written by hand — GSAP for orchestration, CSS for atmosphere'},
         {n:'$50k+',l:'Studio Aesthetic', desc:'The visual caliber of agencies that charge this per project — built solo, without a team or a budget'},
+      ]
+    }
+  },
+  {
+    id:'nova-ai-vodka', tag:'AI & Brand', year:'2026',
+    title:['Nova','AI Vodka'], role:'Frontend Developer',
+    tech:['Next.js','React','AI Integration','Tailwind CSS','Vercel'],
+    live:'https://nova-ai-vodka.vercel.app/', color:'#8FA8C2', rgb:'143,168,194',
+    pvUrl:'nova-ai-vodka.vercel.app',
+    pvContent:`<iframe src="https://nova-ai-vodka.vercel.app/" style="width:100%;height:100%;border:none;display:block;" title="Nova AI Vodka — Live Preview"></iframe>`,
+    reto:{
+      headline:'Translate "vodka distilled by AI" into a site that actually feels that way',
+      text:`NOVA positions itself as <strong>the first vodka distilled by a neural network</strong> trained on 4,000 years of spirit-making history. That's a bold claim — and the site has to back it up visually and interactively. The challenge: build a premium editorial Next.js marketing site that reads as a luxury spirits brand first and a tech product second, while integrating a live AI-powered tool users can actually play with.`,
+      points:[
+        'Build a luxury editorial layout that reads as "spirits brand" first, "AI product" second',
+        'Integrate a live AI Bartender that generates cocktail recipes from mood and flavor inputs',
+        'Keep Core Web Vitals green despite heavy product photography across every section',
+        'Ship a batch scanning flow (QR/NFC → personalized content) that feels premium, not gimmicky',
+      ]
+    },
+    solucion:{
+      headline:'Next.js build, AI-powered Bartender, and a batch system that delivers on the brand promise',
+      text:`I built the site in <strong>Next.js with the App Router</strong>, using the native Image component for all product photography to keep LCP tight. The AI Bartender is wired to a generation endpoint that takes the user's mood, complexity, and flavor selections and returns a custom cocktail recipe. Every section — manifesto, process, find us — uses a monochrome palette and monospace batch numerals to reinforce the data-driven positioning.`,
+      cards:[
+        {ico:'⚡',title:'Next.js App Router',txt:'Built on Next.js with the App Router and the Image component — optimized product photography, fast LCP, and clean routing from shop to manifesto to AI Bartender.'},
+        {ico:'◈',title:'AI Bartender Tool',txt:'Interactive recipe generator that takes mood, complexity, and flavor inputs and returns a custom cocktail. The playable proof of the AI-distillation concept.'},
+        {ico:'✦',title:'Editorial Aesthetic',txt:'Monochrome palette, monospace batch numerals, and cinematic product photography — designed to feel like a luxury spirits magazine, not a tech product page.'},
+      ]
+    },
+    resultado:{
+      headline:'A premium spirits site where the AI story lives in the interaction, not just the copy',
+      text:`The site is live on Vercel running a working AI Bartender and a batch-tracking flow that turns each bottle into a personalized experience. The editorial layout holds its own next to any premium spirits brand, while the technology delivers on the "first vodka distilled by intelligence" promise every time a visitor generates a cocktail.`,
+      stats:[
+        {n:'4',   l:'Process Steps',  desc:'Data → Design → Taste Feedback → Ship — the AI distillation workflow told visually across the site'},
+        {n:'1',   l:'Live AI Tool',   desc:'Interactive Bartender that generates cocktail recipes from user inputs — the playable core of the brand'},
+        {n:'100%',l:'Next.js + Vercel',desc:'Built on Next.js with optimized images, deployed on Vercel for global edge performance'},
       ]
     }
   },
