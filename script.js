@@ -195,32 +195,32 @@ const sliderRows = [
   {
     id: 'srow1', dir: 'fwd',
     items: [
-      { n:'HTML',              ico:'◈', f:true  },
-      { n:'CSS',               ico:'◇', f:true  },
-      { n:'JavaScript',        ico:'⚡', f:true  },
-      { n:'GSAP',              ico:'✦', f:true  },
-      { n:'React.js',          ico:'⚛', f:true  },
-      { n:'Git',               ico:'◆', f:false },
-      { n:'Figma',             ico:'✏', f:false },
+      { n:'HTML',              ico:'<svg viewBox="0 0 24 24"><polyline points="8 6 3 12 8 18"/><polyline points="16 6 21 12 16 18"/></svg>', f:true  },
+      { n:'CSS',               ico:'<svg viewBox="0 0 24 24"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>', f:true  },
+      { n:'JavaScript',        ico:'<svg viewBox="0 0 24 24"><path d="M8 3c-2.5 0-2.5 4-2.5 4s0 3-2.5 3 2.5 0 2.5 3 0 4 2.5 4"/><path d="M16 3c2.5 0 2.5 4 2.5 4s0 3 2.5 3-2.5 0-2.5 3 0 4-2.5 4"/></svg>', f:true  },
+      { n:'GSAP',              ico:'<svg viewBox="0 0 24 24"><path d="M2 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0"/></svg>', f:true  },
+      { n:'React.js',          ico:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>', f:true  },
+      { n:'Git',               ico:'<svg viewBox="0 0 24 24"><circle cx="6" cy="3" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M6 5v11"/><path d="M18 8a9 9 0 0 1-9 9"/></svg>', f:false },
+      { n:'Figma',             ico:'<svg viewBox="0 0 24 24"><path d="M14 3l7 7-11 11H3v-7z"/><path d="M14 10l-3 3"/></svg>', f:false },
     ]
   },
   {
     id: 'srow2', dir: 'rev',
     items: [
-      { n:'WordPress',         ico:'◈', f:true  },
-      { n:'WooCommerce',       ico:'◎', f:false },
-      { n:'Elementor',         ico:'✦', f:false },
-      { n:'Webflow',           ico:'▲', f:false },
-      { n:'SEO Optimization',  ico:'⟡', f:false },
+      { n:'WordPress',         ico:'<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>', f:true  },
+      { n:'WooCommerce',       ico:'<svg viewBox="0 0 24 24"><path d="M5 7h14l-1 14H6z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>', f:false },
+      { n:'Elementor',         ico:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="6" height="18"/><rect x="13" y="3" width="8" height="6"/><rect x="13" y="13" width="8" height="8"/></svg>', f:false },
+      { n:'Webflow',           ico:'<svg viewBox="0 0 24 24"><polyline points="3 6 6 18 12 8 18 18 21 6"/></svg>', f:false },
+      { n:'SEO Optimization',  ico:'<svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><line x1="14.5" y1="14.5" x2="20" y2="20"/><line x1="7" y1="11" x2="7" y2="13"/><line x1="10" y1="9" x2="10" y2="13"/><line x1="13" y1="7" x2="13" y2="13"/></svg>', f:false },
     ]
   },
   {
     id: 'srow3', dir: 'fwd',
     items: [
-      { n:'MongoDB',           ico:'◈', f:false },
-      { n:'Mongoose',          ico:'◎', f:false },
-      { n:'NoSQL',             ico:'◆', f:false },
-      { n:'SQL — Oracle',      ico:'▲', f:false },
+      { n:'MongoDB',           ico:'<svg viewBox="0 0 24 24"><path d="M12 3c-3 4-5 8 0 18 5-10 3-14 0-18z"/><line x1="12" y1="3" x2="12" y2="21"/></svg>', f:false },
+      { n:'Mongoose',          ico:'<svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="7" y1="8" x2="11" y2="16"/><line x1="17" y1="8" x2="13" y2="16"/></svg>', f:false },
+      { n:'NoSQL',             ico:'<svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6"/></svg>', f:false },
+      { n:'SQL — Oracle',      ico:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>', f:false },
     ]
   },
 ];
