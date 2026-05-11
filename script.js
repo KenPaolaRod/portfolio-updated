@@ -270,6 +270,12 @@ const projects = [
     wide: false, link: 'project.html?id=nova-ai-vodka'
   },
   {
+    tag: 'Landing Page', title: 'Muse Mindfulness',
+    desc: 'Clean, conversion-focused landing page for Muse — a mindfulness platform built around guided meditation, structured programs, and everyday presence tools. Minimalist design mirrors the brand philosophy: calm, intentional, and distraction-free.',
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'GitHub Pages'],
+    wide: false, link: 'project.html?id=musa-mindfulness'
+  },
+  {
     tag: 'E-Commerce', title: 'Saredi Jewelry',
     desc: 'Full e-commerce build for a Latin-inspired jewelry brand — Elementor + WooCommerce, custom CSS animations, structured product catalog, and Facebook Pixel integration.',
     tech: ['WordPress', 'WooCommerce', 'Elementor', 'Custom CSS'],
