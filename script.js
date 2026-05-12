@@ -261,6 +261,47 @@ document.querySelectorAll('.stag').forEach(el => {
   el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-grow'));
 });
 
+/* ── Project Showcase Marquee ── */
+const showcaseItems = [
+  { tag: 'AI & Brand',      title: 'Nova AI Vodka',        img: 'imgs/projects/nova.png' },
+  { tag: 'Mindfulness',     title: 'Muse Mindfulness',     img: 'imgs/projects/muse.png' },
+  { tag: 'E-Commerce',      title: 'Saredi Jewelry',       img: 'imgs/projects/saredi.png',   portrait: true },
+  { tag: 'Lead Generation', title: 'Medellín Real Estate', img: 'imgs/projects/medellinRealEstate.png' },
+  { tag: 'API Integration', title: 'Javken Dashboard',     img: 'imgs/projects/stockMarket.png' },
+  { tag: 'Landing Page',    title: 'Grocery Delivery',     img: 'imgs/projects/sales-landing.png', portrait: true },
+  { tag: 'E-Commerce',      title: 'Jewelry Store',        img: 'imgs/projects/jewelryStore.png' },
+];
+const showcaseTrack = document.getElementById('showcaseTrack');
+if (showcaseTrack) {
+  [...showcaseItems, ...showcaseItems].forEach(p => {
+    const a = document.createElement('a');
+    a.className = 'scard' + (p.portrait ? ' scard-portrait' : '');
+    a.href = '#projects';
+
+    const imgWrap = document.createElement('div');
+    imgWrap.className = 'scard-img';
+
+    const img = document.createElement('img');
+    img.src = p.img;
+    img.alt = p.title;
+    img.onerror = function() {
+      const ph = document.createElement('div');
+      ph.className = 'scard-placeholder';
+      imgWrap.insertBefore(ph, this);
+      this.remove();
+    };
+    imgWrap.appendChild(img);
+
+    const info = document.createElement('div');
+    info.className = 'scard-info';
+    info.innerHTML = `<span class="scard-tag">${p.tag}</span><span class="scard-title">${p.title}</span>`;
+
+    a.appendChild(imgWrap);
+    a.appendChild(info);
+    showcaseTrack.appendChild(a);
+  });
+}
+
 /* ── Projects ── */
 const projects = [
   {
