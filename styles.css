@@ -562,59 +562,79 @@ section {
   letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3);
 }
 
-/* ─── SKILLS SLIDER ─── */
-#skills { text-align: center; overflow: hidden; }
+/* ─── SKILLS / TOOLKIT ─── */
+#skills { max-width: 1280px; margin: 0 auto; }
 .skills-sub {
-  max-width: 480px; margin: 0 auto 4rem;
-  font-size: 0.92rem; color: var(--text-2); line-height: 1.85;
+  max-width: 520px; margin: 1rem 0 4.5rem;
+  font-size: 0.92rem; color: var(--text-2);
+  font-style: italic; line-height: 1.7;
 }
-.slider-wrapper { display: flex; flex-direction: column; gap: 1rem; }
-.slider-row {
-  overflow: hidden;
-  position: relative;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
-}
-.slider-track {
-  display: flex; gap: 0.75rem;
-  width: max-content;
-  will-change: transform;
-}
-.track-fwd { animation: slide-left  36s linear infinite; }
-.track-rev { animation: slide-right 28s linear infinite; }
-@keyframes slide-left  { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
-@keyframes slide-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
-.stag {
-  display: inline-flex; align-items: center; gap: 0.55rem;
-  font-family: var(--f-ui); font-size: 0.62rem;
-  font-weight: 300; letter-spacing: 0.16em; text-transform: uppercase;
-  padding: 11px 22px; border-radius: 40px;
-  white-space: nowrap; flex-shrink: 0; cursor: default;
+.toolkit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3.5rem 4rem;
+  margin-bottom: 4rem;
+}
+
+.toolkit-cat-label {
+  font-family: var(--f-ui);
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rose);
+  padding-bottom: 0.85rem;
+  margin-bottom: 1.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.toolkit-chips {
+  display: flex; flex-wrap: wrap; gap: 0.55rem;
+}
+
+.chip {
+  display: inline-flex; align-items: center;
+  gap: 0.55rem;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.035);
   border: 1px solid var(--border);
-  background: var(--surface); color: var(--text-2);
-  transition: border-color 0.25s, color 0.25s, background 0.25s, box-shadow 0.25s;
+  font-family: var(--f-ui);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+  white-space: nowrap;
+  transition: transform 0.25s var(--ease-out), color 0.25s, border-color 0.25s, background 0.25s, box-shadow 0.3s;
   user-select: none;
 }
-.stag:hover {
+.chip:hover {
+  transform: translateY(-2px);
   color: var(--text-1);
-  border-color: rgba(201,144,106,0.45);
+  border-color: rgba(201,144,106,0.4);
   background: rgba(201,144,106,0.06);
-  box-shadow: 0 0 22px rgba(201,144,106,0.12);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35), 0 0 18px rgba(201,144,106,0.08);
 }
-.stag.feat {
-  border-color: rgba(201,144,106,0.28);
-  background: rgba(201,144,106,0.05);
+.chip:hover .chip-ico { color: var(--rose); opacity: 1; }
+
+.chip-ico {
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
   color: var(--text-1);
+  opacity: 0.7;
+  line-height: 0;
+  transition: color 0.25s, opacity 0.25s;
 }
-.stag .ico { font-size: 0.7rem; opacity: 0.7; line-height: 0; display: inline-flex; align-items: center; }
-.stag .ico svg { width: 0.85rem; height: 0.85rem; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.ssep {
-  color: var(--rose); opacity: 0.35;
-  font-size: 0.45rem; flex-shrink: 0;
-  display: flex; align-items: center; padding: 0 2px;
-  pointer-events: none;
+.chip-ico svg {
+  width: 14px; height: 14px;
+  display: block;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
+
 
 
 /* ─── PROJECTS ─── */
@@ -794,8 +814,11 @@ footer {
 @media (max-width: 1024px) {
   .proj-grid { grid-template-columns: 1fr 1fr; }
   .pcard.wide { grid-column: span 2; }
+  .toolkit-grid { grid-template-columns: repeat(2, 1fr); gap: 3rem 3rem; }
 }
 @media (max-width: 768px) {
+  .toolkit-grid { grid-template-columns: 1fr; gap: 2.5rem; margin-bottom: 3rem; }
+  .skills-sub { margin-bottom: 3rem; }
 
   body { cursor: auto; }
   .cursor-trail { display: none; }
@@ -828,4 +851,8 @@ footer {
   .btn-primary, .btn-ghost { text-align: center; width: 100%; }
   .about-stats { grid-template-columns: 1fr; gap: 1rem; }
   footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+  .chip { font-size: 0.66rem; padding: 7px 12px 7px 5px; }
+  .chip-ico { width: 20px; height: 20px; }
+  .toolkit-approach { padding: 1.2rem 1.1rem; gap: 0.9rem; }
+  .approach-body p { font-size: 0.82rem; line-height: 1.55; }
 }

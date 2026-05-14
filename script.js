@@ -190,76 +190,134 @@ const revObs = new IntersectionObserver(entries => {
 }, { threshold: 0.1, rootMargin: '0px 0px -55px 0px' });
 revEls.forEach(el => revObs.observe(el));
 
-/* ── Skills Infinite Slider ── */
-const sliderRows = [
+/* ── Toolkit ── */
+const TK_ICON = {
+  html:        '<svg viewBox="0 0 24 24"><polyline points="8 6 3 12 8 18"/><polyline points="16 6 21 12 16 18"/></svg>',
+  css:         '<svg viewBox="0 0 24 24"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>',
+  js:          '<svg viewBox="0 0 24 24"><path d="M8 3c-2.5 0-2.5 4-2.5 4s0 3-2.5 3 2.5 0 2.5 3 0 4 2.5 4"/><path d="M16 3c2.5 0 2.5 4 2.5 4s0 3 2.5 3-2.5 0-2.5 3 0 4-2.5 4"/></svg>',
+  react:       '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>',
+  git:         '<svg viewBox="0 0 24 24"><circle cx="6" cy="3" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M6 5v11"/><path d="M18 8a9 9 0 0 1-9 9"/></svg>',
+  figma:       '<svg viewBox="0 0 24 24"><path d="M14 3l7 7-11 11H3v-7z"/><path d="M14 10l-3 3"/></svg>',
+  canva:       '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.6-1-1.7-1.6-3-1.6-2.2 0-4 2-4 4.4 0 2 1.4 3.7 3.4 3.7 1.4 0 2.6-.8 3.2-2"/></svg>',
+  wordpress:   '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.6 9.8L8.5 20"/><path d="M9 6.5l5.5 13.4"/><path d="M16 7.2c1.5 0 1.5 2.3 0 5L13.6 17"/><path d="M3.6 14.2L7 7"/></svg>',
+  woocommerce: '<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="11" rx="2"/><path d="M6 11h2l1 3 2-4 2 4 1-3h2"/></svg>',
+  elementor:   '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="6" height="18"/><rect x="13" y="3" width="8" height="6"/><rect x="13" y="13" width="8" height="8"/></svg>',
+  webflow:     '<svg viewBox="0 0 24 24"><polyline points="3 6 6 18 12 8 18 18 21 6"/></svg>',
+  beaver:      '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M9 8h3a3 3 0 0 1 0 6H9z"/><path d="M9 8v8"/><path d="M9 14h3.5a3 3 0 0 1 0 2H9"/></svg>',
+  shopify:     '<svg viewBox="0 0 24 24"><path d="M7 7l1-2c.5-1 1.5-1 2-1l3 1 4-1v17l-12-2z"/><path d="M11 11c0-1 1-1.5 2-1.5"/></svg>',
+  ghl:         '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 11h4v4"/><path d="M16 8v8"/></svg>',
+  mongodb:     '<svg viewBox="0 0 24 24"><path d="M12 3c-3 4-5 8 0 18 5-10 3-14 0-18z"/><line x1="12" y1="3" x2="12" y2="21"/></svg>',
+  mongoose:    '<svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="7" y1="8" x2="11" y2="16"/><line x1="17" y1="8" x2="13" y2="16"/></svg>',
+  nosql:       '<svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6"/></svg>',
+  oracle:      '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>',
+  apis:        '<svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="12" r="2.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/><path d="M12 3v5"/><path d="M12 16v5"/></svg>',
+  webhooks:    '<svg viewBox="0 0 24 24"><polyline points="13 2 4 13 11 13 10 22 20 11 13 11 14 2"/></svg>',
+  dns:         '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></svg>',
+  cloudflare:  '<svg viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1 0-8 5 5 0 0 1 9.5-1A4 4 0 0 1 19 18z"/></svg>',
+  seo:         '<svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><line x1="14.5" y1="14.5" x2="20" y2="20"/><line x1="7" y1="11" x2="7" y2="13"/><line x1="10" y1="9" x2="10" y2="13"/><line x1="13" y1="7" x2="13" y2="13"/></svg>',
+  analytics:   '<svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="20"/><rect x="6"  y="13" width="3" height="7"/><rect x="11" y="8"  width="3" height="12"/><rect x="16" y="4"  width="3" height="16"/></svg>',
+  gtm:         '<svg viewBox="0 0 24 24"><path d="M20 13l-7 7-9-9V4h7z"/><circle cx="9" cy="9" r="1.4" fill="currentColor" stroke="none"/></svg>',
+  gads:        '<svg viewBox="0 0 24 24"><path d="M9 3 3 13l3 5 6-10z"/><path d="M15 3l6 10-3 5L12 8z"/><circle cx="7" cy="18" r="2"/></svg>',
+  clickup:     '<svg viewBox="0 0 24 24"><polyline points="4 16 12 8 20 16"/><polyline points="4 11 12 3 20 11"/></svg>',
+  monday:      '<svg viewBox="0 0 24 24"><line x1="3" y1="7"  x2="14" y2="7"/><line x1="3" y1="12" x2="20" y2="12"/><line x1="3" y1="17" x2="11" y2="17"/></svg>',
+  claude:      '<svg viewBox="0 0 24 24"><path d="M12 2l2.1 6.3L20.5 10l-6.4 1.7L12 18l-2.1-6.3L3.5 10l6.4-1.7z"/></svg>',
+};
+
+const toolkit = [
   {
-    id: 'srow1', dir: 'fwd',
-    items: [
-      { n:'HTML',              ico:'<svg viewBox="0 0 24 24"><polyline points="8 6 3 12 8 18"/><polyline points="16 6 21 12 16 18"/></svg>', f:true  },
-      { n:'CSS',               ico:'<svg viewBox="0 0 24 24"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>', f:true  },
-      { n:'JavaScript',        ico:'<svg viewBox="0 0 24 24"><path d="M8 3c-2.5 0-2.5 4-2.5 4s0 3-2.5 3 2.5 0 2.5 3 0 4 2.5 4"/><path d="M16 3c2.5 0 2.5 4 2.5 4s0 3 2.5 3-2.5 0-2.5 3 0 4-2.5 4"/></svg>', f:true  },
-      { n:'GSAP',              ico:'<svg viewBox="0 0 24 24"><path d="M2 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0"/></svg>', f:true  },
-      { n:'React.js',          ico:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>', f:true  },
-      { n:'Git',               ico:'<svg viewBox="0 0 24 24"><circle cx="6" cy="3" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M6 5v11"/><path d="M18 8a9 9 0 0 1-9 9"/></svg>', f:false },
-      { n:'Figma',             ico:'<svg viewBox="0 0 24 24"><path d="M14 3l7 7-11 11H3v-7z"/><path d="M14 10l-3 3"/></svg>', f:false },
+    cat: 'Frontend Development',
+    tools: [
+      { n:'HTML',       k:'html' },
+      { n:'CSS',        k:'css' },
+      { n:'JavaScript', k:'js' },
+      { n:'React.js',   k:'react' },
+      { n:'Git',        k:'git' },
     ]
   },
   {
-    id: 'srow2', dir: 'rev',
-    items: [
-      { n:'WordPress',         ico:'<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>', f:true  },
-      { n:'WooCommerce',       ico:'<svg viewBox="0 0 24 24"><path d="M5 7h14l-1 14H6z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>', f:false },
-      { n:'Elementor',         ico:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="6" height="18"/><rect x="13" y="3" width="8" height="6"/><rect x="13" y="13" width="8" height="8"/></svg>', f:false },
-      { n:'Webflow',           ico:'<svg viewBox="0 0 24 24"><polyline points="3 6 6 18 12 8 18 18 21 6"/></svg>', f:false },
-      { n:'SEO Optimization',  ico:'<svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><line x1="14.5" y1="14.5" x2="20" y2="20"/><line x1="7" y1="11" x2="7" y2="13"/><line x1="10" y1="9" x2="10" y2="13"/><line x1="13" y1="7" x2="13" y2="13"/></svg>', f:false },
+    cat: 'CMS & No-Code',
+    tools: [
+      { n:'WordPress',      k:'wordpress' },
+      { n:'WooCommerce',    k:'woocommerce' },
+      { n:'Elementor',      k:'elementor' },
+      { n:'Webflow',        k:'webflow' },
+      { n:'Beaver Builder', k:'beaver' },
+      { n:'Shopify',        k:'shopify' },
+      { n:'GHL',            k:'ghl' },
     ]
   },
   {
-    id: 'srow3', dir: 'fwd',
-    items: [
-      { n:'MongoDB',           ico:'<svg viewBox="0 0 24 24"><path d="M12 3c-3 4-5 8 0 18 5-10 3-14 0-18z"/><line x1="12" y1="3" x2="12" y2="21"/></svg>', f:false },
-      { n:'Mongoose',          ico:'<svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="7" y1="8" x2="11" y2="16"/><line x1="17" y1="8" x2="13" y2="16"/></svg>', f:false },
-      { n:'NoSQL',             ico:'<svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6"/></svg>', f:false },
-      { n:'SQL — Oracle',      ico:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>', f:false },
+    cat: 'Design',
+    tools: [
+      { n:'Figma', k:'figma' },
+      { n:'Canva', k:'canva' },
+    ]
+  },
+  {
+    cat: 'Backend & Data',
+    tools: [
+      { n:'MongoDB',     k:'mongodb' },
+      { n:'Mongoose',    k:'mongoose' },
+      { n:'NoSQL',       k:'nosql' },
+      { n:'SQL (Oracle)',k:'oracle' },
+      { n:'APIs',        k:'apis' },
+      { n:'Webhooks',    k:'webhooks' },
+    ]
+  },
+  {
+    cat: 'Infrastructure & SEO',
+    tools: [
+      { n:'DNS',         k:'dns' },
+      { n:'Cloudflare',  k:'cloudflare' },
+      { n:'SEO',         k:'seo' },
+      { n:'Analytics',   k:'analytics' },
+      { n:'Tag Manager', k:'gtm' },
+      { n:'Google Ads',  k:'gads' },
+    ]
+  },
+  {
+    cat: 'Collaboration & AI',
+    tools: [
+      { n:'ClickUp',       k:'clickup' },
+      { n:'Monday',        k:'monday' },
+      { n:'Claude Code',   k:'claude' },
+      { n:'Claude Design', k:'claude' },
     ]
   },
 ];
 
-sliderRows.forEach(row => {
-  const container = document.getElementById(row.id);
-  const track = document.createElement('div');
-  track.className = `slider-track track-${row.dir}`;
+(function renderToolkit() {
+  const grid = document.getElementById('toolkitGrid');
+  if (!grid) return;
+  const frag = document.createDocumentFragment();
+  toolkit.forEach(group => {
+    const col = document.createElement('div');
+    col.className = 'toolkit-cat';
 
-  // Render twice for seamless loop
-  for (let pass = 0; pass < 2; pass++) {
-    row.items.forEach(s => {
-      const tag = document.createElement('div');
-      tag.className = 'stag' + (s.f ? ' feat' : '');
-      tag.innerHTML = `<span class="ico">${s.ico}</span>${s.n}`;
-      track.appendChild(tag);
-      const sep = document.createElement('div');
-      sep.className = 'ssep'; sep.textContent = '✦';
-      track.appendChild(sep);
+    const label = document.createElement('div');
+    label.className = 'toolkit-cat-label';
+    label.textContent = group.cat;
+    col.appendChild(label);
+
+    const chips = document.createElement('div');
+    chips.className = 'toolkit-chips';
+    group.tools.forEach(t => {
+      const ico = TK_ICON[t.k] || '';
+      const chip = document.createElement('span');
+      chip.className = 'chip';
+      chip.innerHTML = `<span class="chip-ico">${ico}</span>${t.n}`;
+      chips.appendChild(chip);
     });
-  }
+    col.appendChild(chips);
+    frag.appendChild(col);
+  });
+  grid.appendChild(frag);
 
-  container.appendChild(track);
-
-  // Pause on hover
-  container.addEventListener('mouseenter', () => track.style.animationPlayState = 'paused');
-  container.addEventListener('mouseleave', () => track.style.animationPlayState = 'running');
-});
-
-// Vary speeds so rows feel independent
-document.querySelector('#srow1 .slider-track').style.animationDuration = '38s';
-document.querySelector('#srow2 .slider-track').style.animationDuration = '29s';
-document.querySelector('#srow3 .slider-track').style.animationDuration = '44s';
-
-// Cursor grow on stags
-document.querySelectorAll('.stag').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-grow'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-grow'));
-});
+  document.querySelectorAll('.chip').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-grow'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-grow'));
+  });
+})();
 
 /* ── Projects ── */
 const projects = [
