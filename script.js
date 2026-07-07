@@ -322,6 +322,12 @@ const toolkit = [
 /* ── Projects ── */
 const projects = [
   {
+    tag: 'Business Website', title: 'Eververdant Growth Partners',
+    desc: 'Complete business website for a fractional CFO advisory firm, designed in Figma and built in Webflow. Generous white space, a warm earthy palette, and layouts guided by reading psychology turn a heavy financial offer into a calm, easy to follow journey that leads visitors toward booking a strategy call.',
+    tech: ['Figma', 'Webflow', 'UX Research', 'Responsive Design'],
+    wide: false, link: 'project.html?id=eververdant-growth'
+  },
+  {
     tag: 'AI & Brand', title: 'Nova AI Vodka',
     desc: 'Editorial marketing site for NOVA — "the first vodka distilled by intelligence" — built in Next.js. Monochrome luxury aesthetic with monospace batch numerals, cinematic product photography, and a live AI Bartender that generates custom cocktail recipes from mood, complexity, and flavor inputs. Batch scanning flow (QR/NFC) unlocks personalized content per bottle.',
     tech: ['Next.js', 'React', 'AI Integration', 'Tailwind CSS', 'Vercel'],
@@ -338,12 +344,6 @@ const projects = [
     desc: 'Full e-commerce build for a Latin-inspired jewelry brand — Elementor + WooCommerce, custom CSS animations, structured product catalog, and Facebook Pixel integration.',
     tech: ['WordPress', 'WooCommerce', 'Elementor', 'Custom CSS'],
     wide: false, link: 'project.html?id=saredi-jewelry'
-  },
-  {
-    tag: 'Landing Page', title: 'Grocery Delivery',
-    desc: 'Custom sales landing page for a grocery delivery service — pure HTML & CSS, no frameworks. Logo design, color palette, and full brand identity created from scratch.',
-    tech: ['HTML5', 'CSS3', 'Flexbox / Grid', 'Logo Design'],
-    wide: false, link: 'project.html?id=grocery-landing'
   },
   {
     tag: 'Lead Generation', title: 'Medellín Real Estate',
